@@ -1,0 +1,44 @@
+{% extends  'base.html' %}
+{% block title %} Update User Page {% endblock title%}
+{% block content %}
+<div class="container my-3">
+    <div class="row justify-content-center">
+        <div class="col-md-8 m-auto p-3 border border-warning">
+            <h2 class="text-center text-dark">Update your data</h2>
+            {% comment %} {% for msg in messages %}
+                <div class="alert alert-warning alert-dismissible fade show auto-close-alert" role="alert">
+                    <strong class="fw-550 me-2">Congratulations!</strong>{{msg}}
+                </div>
+            {% endfor %} {% endcomment %}
+
+            {% load crispy_forms_tags %}
+            <div class="bg-info">
+                <form method="post" style="width:50%;margin:auto" novalidate>
+                    {% csrf_token %}
+                    <!--{{form | crispy}}-->
+                    {% for fm in form %}
+                        <div class="mb-2">
+                            {{fm.label_tag}}{% if fm.field.required %}<span class="asteriskField">*</span>{% endif %}
+                            {{fm}}
+                            {{fm.errors|striptags}}
+                        </div>
+                    {% endfor %}
+                    <button class="btn btn-primary w-100 mt-3" type="submit" id="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+<!-- JavaScript to auto-close alerts -->
+{% comment %} <script>
+    $(document).ready(function(){
+        setTimeout(function() {
+            $(".auto-close-alert").alert('close');
+        }, 3000); // 2000 milliseconds = 2 seconds
+    });
+</script> {% endcomment %}
+
+{% endblock content %}

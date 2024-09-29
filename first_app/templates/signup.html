@@ -1,0 +1,49 @@
+{% extends  'base.html' %}
+{% block title %} Registration Page {% endblock title%}
+{% block content %}
+{% load static %}
+<style>
+    body {
+        background-image: url("{% static 'images/bg-login.jpg' %}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100vh;
+    }
+</style>
+<div class="container my-3">
+    <div class="row justify-content-center">
+        <div class="col-md-8 m-auto p-3 border border-warning">
+            <h2 class="text-center text-dark fw-bold">Register Form</h2>
+            {% load crispy_forms_tags %}
+                <form method="post" style="width:50%;margin:auto" novalidate>
+                    {% csrf_token %}
+                    <!--{{form | crispy}}-->
+                    {% for fm in form %}
+                        <div class="mb-2">
+                            <label class="fw-bold">{{ fm.label_tag }}{% if fm.field.required %}<span class="asteriskField">*</span>{% endif %}</label>
+                            {{fm}}
+                            {{fm.errors|striptags}}
+                        </div>
+                    {% endfor %}
+                    <button class="btn btn-primary w-100 mt-3" type="submit" id="submit">Submit</button>
+                </form>
+                <div class="p-2">
+                    <h6 class="text-center">Already have an account? <a a href="{% url 'login' %}" class="text-white">Login Here</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+<!-- JavaScript to auto-close alerts -->
+{% comment %} <script>
+    $(document).ready(function(){
+        setTimeout(function() {
+            $(".auto-close-alert").alert('close');
+        }, 3000); // 2000 milliseconds = 2 seconds
+    });
+</script> {% endcomment %}
+
+{% endblock content %}

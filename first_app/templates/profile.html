@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %} Profile Page {% endblock title%}
+{% block content %}
+{% load static %}
+<div class="container-fluid py-5" style="margin-top:100px;">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-8 my-3 mb-4">
+            <div class="border border-success text-center p-4 bg-light">
+                <div class="card border-warning shadow-lg">
+                    <div class="card-body text-center">
+                        <h3 class="card-title mb-4">{{user.first_name}} {{user.last_name}}</h3>
+                        <img src="{% static 'images/user.png' %}" class="img-fluid rounded-circle mb-4" style="width: 150px; height: 150px; object-fit: cover;" alt="{{user.first_name}}">
+                        <h5 class="card-text">Username: {{user.username}}</h5>
+                        <h5 class="card-text">Email: {{user.email}}</h5>
+                        <a class="btn btn-success me-3 w-100 m-2 p-2" href="{% url 'updateUser' %}">Update Your Profile</a>
+                        <a class="btn btn-warning w-100 m-2 p-2" href="{% url 'setPasswordChange' %}">Change Your Password</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

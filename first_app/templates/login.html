@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %} SignIn Page {% endblock title %}
+{% block content %}
+{% load static %}
+<style>
+    body {
+        background-image: url("{% static 'images/bg-login.jpg' %}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100vh;
+    }
+</style>
+<div class="d-flex justify-content-center align-items-center min-vh-100">
+    <div class="col-md-8 m-auto p-3 border border-warning w-50">
+        <h2 class="text-center text-dark fw-bold">Login</h2>
+        {% load crispy_forms_tags %}
+        <div class="">
+            {% if form.non_field_errors %}
+            {% for error in form.non_field_errors %}
+            <p class="bg-danger text-white p-3 rounded">{{error}}</p>
+            {% endfor %}
+            {% endif %}
+            <form method="post" style="width:50%;margin:auto" novalidate>
+                {% csrf_token %}
+                <!--{{form | crispy}}-->
+                {% for fm in form %}
+                <div class="mb-2">
+                    <label class="fw-bold">{{ fm.label_tag }}{% if fm.field.required %}<span
+                            class="asteriskField">*</span>{% endif %}</label>
+                    {{fm}}
+                    {{fm.errors|striptags}}
+                </div>
+                {% endfor %}
+                <a href="{% url 'password_reset' %}" class="text-decoration-none text-danger">Forgot Password?</a>
+                <button class="btn btn-warning w-100 my-2" type="submit" id="submit">Login</button>
+            </form>
+            <div class="p-2">
+                <h6 class="text-center">Don't have an account? <a href="{% url 'signup' %}" class="text-white">Register
+                        Here</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+{% endblock content %}

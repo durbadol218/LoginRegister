@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %} Change Password Page {% endblock title %}
+{% block content %}
+<div class="col-md-8 m-auto p-3 border border-warning">
+    {% load crispy_forms_tags %}
+    <div class="bg-info">
+        {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+            <p class="bg-danger text-white p-3 rounded">{{error}}</p>
+        {% endfor %}
+        {% endif %}
+        <form method="post" style="width:50%;margin:auto" novalidate>
+            {% csrf_token %}
+            <!--{{form | crispy}}-->
+            {% for fm in form %}
+                <div class="mb-2">
+                    {{fm.label_tag}}{% if fm.field.required %}<span class="asteriskField">*</span>{% endif %}
+                    {{fm}}
+                    {{fm.errors|striptags}}
+                </div>
+            {% endfor %}
+            <button class="btn btn-warning w-100 my-2" type="submit" id="submit">Submit</button>
+        </form>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+{% endblock content %}
